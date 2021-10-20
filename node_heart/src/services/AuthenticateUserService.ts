@@ -38,17 +38,17 @@ class AuthenticateUserService {
       }
     );
 
-    const { login, id, avatar, name } = response.data;
+    const { login, id, avatar, name} = response.data
 
-    let user = await prismaClient.user.findFirst({
+    let user = await prismaClient.user.findFirst({ 
       where: {
         github_id: id
       }
     })
 
-    if (!user) {
-      user = await prismaClient.user.create({
-        data: {
+    if(!user){
+      await prismaClient.user.create({
+        data:{
           github_id: id,
           login,
           avatar,
@@ -59,20 +59,21 @@ class AuthenticateUserService {
 
     const token = sign(
       {
-        user: {
+        user:{
           name: user.name,
           avatar: user.avatar,
-          id: user.id,
+          id: user.id
         }
       },
       process.env.JWT_SECRET,
       {
         subject: user.id,
-        expiresIn: "1d",
+        expiresIn: "1d"
       }
-    );
 
-    return { token, user };
+    )
+
+    return {token, user};
   }
 }
 
