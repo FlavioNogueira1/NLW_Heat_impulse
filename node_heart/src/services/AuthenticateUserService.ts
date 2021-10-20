@@ -7,10 +7,10 @@ interface IAccessTokenResponse {
 }
 
 interface IUserResponse {
-  avatar: string;
-  login: string;
-  id: number;
-  name: string;
+  avatar: string,
+  login: string,
+  id: number,
+  name: string,
 }
 
 class AuthenticateUserService {
